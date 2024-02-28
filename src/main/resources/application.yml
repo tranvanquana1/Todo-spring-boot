@@ -1,0 +1,52 @@
+server:
+  port: 9090
+
+db:
+  host: localhost
+  port: 4000
+  name: erp_demo
+  username: root
+  password: ghtk@123
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    enabled: true
+    path: /docs
+
+spring:
+  jpa:
+    open-in-view: off
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+  datasource:
+    url: jdbc:mysql://${db.host}:${db.port}/${db.name}?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    username: ${db.username}
+    password: ${db.password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      jdbc-url: ${spring.datasource.url}
+      username: ${spring.datasource.username}
+      password: ${spring.datasource.password}
+      driver-class-name: ${spring.datasource.driver-class-name}
+      auto-commit: true
+      connection-timeout: 30000
+      idle-timeout: 60000
+      max-lifetime: 180000
+      minimum-idle: 50
+      maximum-pool-size: 500
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+        useLocalSessionState: true
+        rewriteBatchedStatements: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false

@@ -23,4 +23,6 @@ public class TaskRequest {
     private Integer priority;
 
     private LocalDate dueDate;
+
+    private Integer status;
 }

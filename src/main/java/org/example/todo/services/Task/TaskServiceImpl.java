@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class TaskServiceImpl implements TaskService {
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
 
     @Override
     public DefaultResponse<TaskResponse> create(TaskRequest taskRequest) {
@@ -37,4 +37,42 @@ public class TaskServiceImpl implements TaskService {
                 page.hasContent() ? page.get().map(TaskResponse::of).toList() : Collections.emptyList()
         );
     }
+
+    @Override
+    public DefaultResponse<TaskResponse> update(TaskRequest taskRequest) {
+        Task task = taskRepository.findById(taskRequest.getId())
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Không tìm thấy Task với ID %s !", taskRequest.getId())));
+
+        // Todo: set các thông tin khác
+        task.setDescription(taskRequest.getDescription());
+        task.setDueDate(taskRequest.getDueDate());
+        task.setModifiedAt(LocalDateTime.now());
+        task = taskRepository.save(task);
+
+        return DefaultResponse.success(TaskResponse.of(task));
+    }
+
+    @Override
+    public DefaultResponse<TaskResponse> delete(TaskRequest taskRequest) {
+        Task task = taskRepository.findById(taskRequest.getId())
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Không tìm thấy Task với ID %s !", taskRequest.getId())));
+
+        taskRepository.delete(task);
+
+        return DefaultResponse.success(null);
+    }
+
+    @Override
+    public DefaultResponse<TaskResponse> completeTask(TaskRequest taskRequest) {
+        Task task = taskRepository.findById(taskRequest.getId())
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Không tìm thấy Task với ID %s !", taskRequest.getId())));
+
+        task.setStatus(taskRequest.getStatus());
+        task.setModifiedAt(LocalDateTime.now());
+
+        task = taskRepository.save(task);
+
+        return DefaultResponse.success(TaskResponse.of(task));
+    }
+
 }

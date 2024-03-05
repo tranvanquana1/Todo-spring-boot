@@ -20,18 +20,18 @@ import java.util.List;
 public class TaskController {
     private final TaskService taskService;
     /*
-    *  Create task
-    *  Modify task
-    *  Delete task
-    *  Complete task
-    *  Filter, search
-    *  Reminder
-    *  History
-    *  Authentication
+    *  Create task [v]
+    *  Modify task [v]
+    *  Delete task [v]
+    *  Complete task [v]
+    *  Filter, search []
+    *  Reminder []
+    *  History []
+    *  Authentication []
     *
     * */
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<DefaultResponse<List<TaskResponse>>> list(
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(value = "limit", required = false, defaultValue = "20") Integer limit
@@ -41,10 +41,31 @@ public class TaskController {
         return ResponseEntity.ok(taskService.list(pageable));
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<DefaultResponse<TaskResponse>> create(
             @RequestBody TaskRequest request
     ) {
         return ResponseEntity.ok(taskService.create(request));
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<DefaultResponse<TaskResponse>> update(
+            @RequestBody TaskRequest request
+    ) {
+        return ResponseEntity.ok(taskService.update(request));
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<DefaultResponse<TaskResponse>> delete(
+            @RequestBody TaskRequest request
+    ) {
+        return ResponseEntity.ok(taskService.delete(request));
+    }
+
+    @PostMapping("/complete")
+    public ResponseEntity<DefaultResponse<TaskResponse>> completeTask(
+            @RequestBody TaskRequest request
+    ) {
+        return ResponseEntity.ok(taskService.completeTask(request));
     }
 }

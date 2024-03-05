@@ -37,6 +37,9 @@ public class Task {
     @Column(name = "due_date")
     private LocalDate dueDate;
 
+    @Column(name = "status")
+    private Integer status;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
@@ -50,6 +53,7 @@ public class Task {
                 .description(request.getDescription())
                 .priority(Priority.of(request.getPriority()))
                 .dueDate(request.getDueDate())
+                .status(request.getStatus())
                 .build();
     }
 }

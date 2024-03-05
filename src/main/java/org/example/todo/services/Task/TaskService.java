@@ -11,4 +11,10 @@ public interface TaskService {
     DefaultResponse<TaskResponse> create(TaskRequest taskRequest);
 
     DefaultResponse<List<TaskResponse>> list(Pageable pageable);
+
+    DefaultResponse<TaskResponse> update(TaskRequest taskRequest);
+
+    DefaultResponse<TaskResponse> delete(TaskRequest taskRequest);
+
+    DefaultResponse<TaskResponse> completeTask(TaskRequest taskRequest);
 }

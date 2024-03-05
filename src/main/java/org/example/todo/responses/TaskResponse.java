@@ -22,6 +22,7 @@ public class TaskResponse {
     private String description;
     private Integer priority;
     private LocalDate dueDate;
+    private Integer status;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
@@ -33,6 +34,9 @@ public class TaskResponse {
                 .description(task.getDescription())
                 .priority(task.getPriority().getValue())
                 .dueDate(task.getDueDate())
+                .status(task.getStatus())
+                .createdAt(task.getCreatedAt())
+                .modifiedAt(task.getModifiedAt())
                 .build();
     }
 }
